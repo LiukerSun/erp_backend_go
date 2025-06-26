@@ -1,0 +1,2158 @@
+basePath: /api/v1
+definitions:
+  attribute.Attribute:
+    description: 属性信息
+    properties:
+      category_id:
+        description: 所属分类ID
+        type: integer
+      created_at:
+        description: 创建时间
+        type: string
+      data_type:
+        description: 数据类型
+        type: string
+      deleted_at:
+        description: 删除时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      is_enabled:
+        description: 是否启用
+        type: boolean
+      is_required:
+        description: 是否必填
+        type: boolean
+      name:
+        description: 属性名称
+        type: string
+      remark:
+        description: 属性备注
+        type: string
+      updated_at:
+        description: 更新时间
+        type: string
+    type: object
+  attribute.ProductAttribute:
+    description: 商品属性值信息
+    properties:
+      attribute_id:
+        description: 属性ID
+        type: integer
+      created_at:
+        description: 创建时间
+        type: string
+      deleted_at:
+        description: 删除时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      product_id:
+        description: 商品ID
+        type: integer
+      updated_at:
+        description: 更新时间
+        type: string
+      value:
+        description: 属性值
+        type: string
+    type: object
+  category.Category:
+    description: 分类信息
+    properties:
+      created_at:
+        description: 创建时间
+        type: string
+      deleted_at:
+        description: 删除时间
+        type: string
+      description:
+        description: 分类描述
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      is_enabled:
+        description: 是否启用
+        type: boolean
+      level_remark:
+        description: 层级备注
+        type: string
+      name:
+        description: 分类名称
+        type: string
+      parent_id:
+        description: 父级分类ID
+        type: integer
+      updated_at:
+        description: 更新时间
+        type: string
+    type: object
+  link.Link:
+    description: 链接信息
+    properties:
+      base_remark:
+        description: 基础备注
+        type: string
+      category_id:
+        description: 类目ID
+        type: integer
+      created_at:
+        description: 创建时间
+        type: string
+      deleted_at:
+        description: 删除时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      is_enabled:
+        description: 是否启用
+        type: boolean
+      name:
+        description: 链接名称
+        type: string
+      remark:
+        description: 链接备注
+        type: string
+      shop_id:
+        description: 店铺ID
+        type: integer
+      updated_at:
+        description: 更新时间
+        type: string
+      url:
+        description: 链接地址
+        type: string
+    type: object
+  product.DynamicAttributes:
+    additionalProperties: true
+    type: object
+  product.Product:
+    description: 商品信息
+    properties:
+      category_id:
+        description: 分类ID
+        type: integer
+      created_at:
+        description: 创建时间
+        type: string
+      deleted_at:
+        description: 删除时间
+        type: string
+      dynamic_attrs:
+        allOf:
+        - $ref: '#/definitions/product.DynamicAttributes'
+        description: 动态属性
+      id:
+        description: 主键ID
+        type: integer
+      is_enabled:
+        description: 是否启用
+        type: boolean
+      name:
+        description: 商品名称
+        type: string
+      price:
+        description: 商品价格
+        type: number
+      remark:
+        description: 商品备注
+        type: string
+      sku:
+        description: 商品SKU
+        type: string
+      stock:
+        description: 商品库存
+        type: integer
+      supplier_id:
+        description: 供应商ID
+        type: integer
+      type:
+        description: 商品类型
+        type: integer
+      updated_at:
+        description: 更新时间
+        type: string
+    type: object
+  response.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+  shop.Shop:
+    description: 店铺信息
+    properties:
+      created_at:
+        description: 创建时间
+        type: string
+      deleted_at:
+        description: 删除时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      is_enabled:
+        description: 是否启用
+        type: boolean
+      name:
+        description: 店铺名称
+        type: string
+      remark:
+        description: 店铺备注
+        type: string
+      supplier_id:
+        description: 所属供应商ID
+        type: integer
+      updated_at:
+        description: 更新时间
+        type: string
+    type: object
+  supplier.Supplier:
+    description: 供应商信息
+    properties:
+      created_at:
+        description: 创建时间
+        type: string
+      deleted_at:
+        description: 删除时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      is_enabled:
+        description: 是否启用
+        type: boolean
+      name:
+        description: 供应商名称
+        type: string
+      remark:
+        description: 供应商备注
+        type: string
+      updated_at:
+        description: 更新时间
+        type: string
+    type: object
+  user.CreateUserRequest:
+    description: 创建用户的请求参数
+    properties:
+      email:
+        description: 邮箱
+        example: zhangsan@example.com
+        type: string
+      name:
+        description: 用户名
+        example: 张三
+        type: string
+      password:
+        description: 密码
+        example: "123456"
+        minLength: 6
+        type: string
+      phone:
+        description: 电话号码
+        example: "13800138000"
+        type: string
+      user_type:
+        description: 用户类型
+        enum:
+        - 管理员
+        - 供应商
+        - 员工
+        example: 员工
+        type: string
+    required:
+    - email
+    - name
+    - password
+    - phone
+    - user_type
+    type: object
+  user.LoginRequest:
+    description: 用户登录的请求参数
+    properties:
+      password:
+        description: 密码
+        example: password123
+        type: string
+      username:
+        description: 用户名
+        example: admin
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  user.LoginResponse:
+    description: 登录成功后的响应数据
+    properties:
+      token:
+        description: JWT令牌
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        type: string
+      user:
+        allOf:
+        - $ref: '#/definitions/user.UserResponse'
+        description: 用户信息
+    type: object
+  user.UpdatePasswordRequest:
+    description: 修改密码的请求参数
+    properties:
+      new_password:
+        description: 新密码
+        example: "654321"
+        minLength: 6
+        type: string
+      old_password:
+        description: 旧密码
+        example: "123456"
+        type: string
+    required:
+    - new_password
+    - old_password
+    type: object
+  user.UpdateUserRequest:
+    description: 更新用户的请求参数
+    properties:
+      email:
+        description: 邮箱
+        example: zhangsan@example.com
+        type: string
+      name:
+        description: 用户名
+        example: 张三
+        type: string
+      password:
+        description: 密码（可选）
+        example: "123456"
+        minLength: 6
+        type: string
+      phone:
+        description: 电话号码
+        example: "13800138000"
+        type: string
+      user_type:
+        description: 用户类型
+        enum:
+        - 管理员
+        - 供应商
+        - 员工
+        example: 员工
+        type: string
+    required:
+    - email
+    - name
+    - phone
+    - user_type
+    type: object
+  user.UserResponse:
+    description: 用户信息的响应格式
+    properties:
+      created_at:
+        description: 创建时间
+        example: "2024-01-01T00:00:00+08:00"
+        type: string
+      email:
+        description: 邮箱
+        example: zhangsan@example.com
+        type: string
+      id:
+        description: 用户ID
+        example: 1
+        type: integer
+      is_delete:
+        description: 是否删除
+        example: false
+        type: boolean
+      name:
+        description: 用户名
+        example: 张三
+        type: string
+      phone:
+        description: 电话号码
+        example: "13800138000"
+        type: string
+      updated_at:
+        description: 更新时间
+        example: "2024-01-01T00:00:00+08:00"
+        type: string
+      user_type:
+        description: 用户类型
+        example: 员工
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: ERP 系统后端 API 文档
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: ERP 系统 API
+  version: "1.0"
+paths:
+  /attributes:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有属性的列表
+      parameters:
+      - description: 分类ID
+        in: query
+        name: category_id
+        type: string
+      - description: 是否启用
+        in: query
+        name: is_enabled
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/attribute.Attribute'
+                  type: array
+              type: object
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取属性列表
+      tags:
+      - 属性管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的属性
+      parameters:
+      - description: 属性信息
+        in: body
+        name: attribute
+        required: true
+        schema:
+          $ref: '#/definitions/attribute.Attribute'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/attribute.Attribute'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 创建属性
+      tags:
+      - 属性管理
+  /attributes/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除属性
+      parameters:
+      - description: 属性ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除属性
+      tags:
+      - 属性管理
+    get:
+      consumes:
+      - application/json
+      description: 根据ID获取属性信息
+      parameters:
+      - description: 属性ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/attribute.Attribute'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 属性不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取单个属性
+      tags:
+      - 属性管理
+    put:
+      consumes:
+      - application/json
+      description: 更新属性信息
+      parameters:
+      - description: 属性ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 属性信息
+        in: body
+        name: attribute
+        required: true
+        schema:
+          $ref: '#/definitions/attribute.Attribute'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/attribute.Attribute'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 属性不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新属性
+      tags:
+      - 属性管理
+  /attributes/{id}/toggle:
+    patch:
+      consumes:
+      - application/json
+      description: 启用/禁用属性
+      parameters:
+      - description: 属性ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/attribute.Attribute'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 属性不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 切换属性状态
+      tags:
+      - 属性管理
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录并返回JWT token
+      parameters:
+      - description: 登录信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 登录成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.LoginResponse'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "401":
+          description: 用户名或密码错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 用户登录
+      tags:
+      - 用户认证
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: 注册新用户
+      parameters:
+      - description: 用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 注册成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.UserResponse'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 用户注册
+      tags:
+      - 用户认证
+  /categories:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有分类的列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/category.Category'
+                  type: array
+              type: object
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取分类列表
+      tags:
+      - 分类管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的分类
+      parameters:
+      - description: 分类信息
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/category.Category'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/category.Category'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 创建分类
+      tags:
+      - 分类管理
+  /categories/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除分类
+      parameters:
+      - description: 分类ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除分类
+      tags:
+      - 分类管理
+    get:
+      consumes:
+      - application/json
+      description: 根据ID获取分类信息
+      parameters:
+      - description: 分类ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/category.Category'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 分类不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取单个分类
+      tags:
+      - 分类管理
+    put:
+      consumes:
+      - application/json
+      description: 更新分类信息
+      parameters:
+      - description: 分类ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 分类信息
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/category.Category'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/category.Category'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 分类不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新分类
+      tags:
+      - 分类管理
+  /categories/{id}/toggle:
+    patch:
+      consumes:
+      - application/json
+      description: 启用/禁用分类
+      parameters:
+      - description: 分类ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 切换成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/category.Category'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 分类不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 切换分类状态
+      tags:
+      - 分类管理
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: 检查服务是否正常运行
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 服务运行正常
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+      summary: 健康检查
+      tags:
+      - 系统
+  /links:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有链接的列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/link.Link'
+                  type: array
+              type: object
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取链接列表
+      tags:
+      - 链接管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的链接
+      parameters:
+      - description: 链接信息
+        in: body
+        name: link
+        required: true
+        schema:
+          $ref: '#/definitions/link.Link'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/link.Link'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 创建链接
+      tags:
+      - 链接管理
+  /links/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除链接
+      parameters:
+      - description: 链接ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除链接
+      tags:
+      - 链接管理
+    get:
+      consumes:
+      - application/json
+      description: 根据ID获取链接信息
+      parameters:
+      - description: 链接ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/link.Link'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 链接不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取单个链接
+      tags:
+      - 链接管理
+    put:
+      consumes:
+      - application/json
+      description: 更新链接信息
+      parameters:
+      - description: 链接ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 链接信息
+        in: body
+        name: link
+        required: true
+        schema:
+          $ref: '#/definitions/link.Link'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/link.Link'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 链接不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新链接
+      tags:
+      - 链接管理
+  /links/{id}/toggle:
+    patch:
+      consumes:
+      - application/json
+      description: 启用/禁用链接
+      parameters:
+      - description: 链接ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 切换成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/link.Link'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 链接不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 切换链接状态
+      tags:
+      - 链接管理
+  /product-attributes:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有商品属性值的列表
+      parameters:
+      - description: 商品ID
+        in: query
+        name: product_id
+        type: string
+      - description: 属性ID
+        in: query
+        name: attribute_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/attribute.ProductAttribute'
+                  type: array
+              type: object
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取商品属性值列表
+      tags:
+      - 商品属性值管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的商品属性值
+      parameters:
+      - description: 商品属性值信息
+        in: body
+        name: productAttribute
+        required: true
+        schema:
+          $ref: '#/definitions/attribute.ProductAttribute'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/attribute.ProductAttribute'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 创建商品属性值
+      tags:
+      - 商品属性值管理
+  /product-attributes/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除商品属性值
+      parameters:
+      - description: 商品属性值ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除商品属性值
+      tags:
+      - 商品属性值管理
+    put:
+      consumes:
+      - application/json
+      description: 更新商品属性值信息
+      parameters:
+      - description: 商品属性值ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 商品属性值信息
+        in: body
+        name: productAttribute
+        required: true
+        schema:
+          $ref: '#/definitions/attribute.ProductAttribute'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/attribute.ProductAttribute'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 商品属性值不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新商品属性值
+      tags:
+      - 商品属性值管理
+  /products:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有商品的列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/product.Product'
+                  type: array
+              type: object
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取商品列表
+      tags:
+      - 商品管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的商品
+      parameters:
+      - description: 商品信息
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/product.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/product.Product'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 创建商品
+      tags:
+      - 商品管理
+  /products/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除商品
+      parameters:
+      - description: 商品ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除商品
+      tags:
+      - 商品管理
+    get:
+      consumes:
+      - application/json
+      description: 根据ID获取商品信息
+      parameters:
+      - description: 商品ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/product.Product'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 商品不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取单个商品
+      tags:
+      - 商品管理
+    put:
+      consumes:
+      - application/json
+      description: 更新商品信息
+      parameters:
+      - description: 商品ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 商品信息
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/product.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/product.Product'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 商品不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新商品
+      tags:
+      - 商品管理
+  /products/{id}/toggle:
+    patch:
+      consumes:
+      - application/json
+      description: 启用/禁用商品
+      parameters:
+      - description: 商品ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 切换成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/product.Product'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 商品不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 切换商品状态
+      tags:
+      - 商品管理
+  /shops:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有店铺的列表
+      parameters:
+      - description: 供应商ID
+        in: query
+        name: supplier_id
+        type: string
+      - description: 是否启用
+        in: query
+        name: is_enabled
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/shop.Shop'
+                  type: array
+              type: object
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取店铺列表
+      tags:
+      - 店铺管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的店铺
+      parameters:
+      - description: 店铺信息
+        in: body
+        name: shop
+        required: true
+        schema:
+          $ref: '#/definitions/shop.Shop'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/shop.Shop'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 创建店铺
+      tags:
+      - 店铺管理
+  /shops/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除店铺
+      parameters:
+      - description: 店铺ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除店铺
+      tags:
+      - 店铺管理
+    get:
+      consumes:
+      - application/json
+      description: 根据ID获取店铺信息
+      parameters:
+      - description: 店铺ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/shop.Shop'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 店铺不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取单个店铺
+      tags:
+      - 店铺管理
+    put:
+      consumes:
+      - application/json
+      description: 更新店铺信息
+      parameters:
+      - description: 店铺ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 店铺信息
+        in: body
+        name: shop
+        required: true
+        schema:
+          $ref: '#/definitions/shop.Shop'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/shop.Shop'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 店铺不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新店铺
+      tags:
+      - 店铺管理
+  /shops/{id}/toggle:
+    patch:
+      consumes:
+      - application/json
+      description: 启用/禁用店铺
+      parameters:
+      - description: 店铺ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/shop.Shop'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 店铺不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 切换店铺状态
+      tags:
+      - 店铺管理
+  /suppliers:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有供应商的列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/supplier.Supplier'
+                  type: array
+              type: object
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取供应商列表
+      tags:
+      - 供应商管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的供应商
+      parameters:
+      - description: 供应商信息
+        in: body
+        name: supplier
+        required: true
+        schema:
+          $ref: '#/definitions/supplier.Supplier'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/supplier.Supplier'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 创建供应商
+      tags:
+      - 供应商管理
+  /suppliers/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除供应商
+      parameters:
+      - description: 供应商ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除供应商
+      tags:
+      - 供应商管理
+    get:
+      consumes:
+      - application/json
+      description: 根据ID获取供应商信息
+      parameters:
+      - description: 供应商ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/supplier.Supplier'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 供应商不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取单个供应商
+      tags:
+      - 供应商管理
+    put:
+      consumes:
+      - application/json
+      description: 更新供应商信息
+      parameters:
+      - description: 供应商ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 供应商信息
+        in: body
+        name: supplier
+        required: true
+        schema:
+          $ref: '#/definitions/supplier.Supplier'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/supplier.Supplier'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 供应商不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新供应商
+      tags:
+      - 供应商管理
+  /suppliers/{id}/toggle:
+    patch:
+      consumes:
+      - application/json
+      description: 启用/禁用供应商
+      parameters:
+      - description: 供应商ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 切换成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/supplier.Supplier'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 供应商不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 切换供应商状态
+      tags:
+      - 供应商管理
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有用户的列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/user.UserResponse'
+                  type: array
+              type: object
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户列表
+      tags:
+      - 用户管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新用户
+      parameters:
+      - description: 用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.UserResponse'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建用户
+      tags:
+      - 用户管理
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除指定用户
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除用户
+      tags:
+      - 用户管理
+    get:
+      consumes:
+      - application/json
+      description: 根据ID获取用户信息
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.UserResponse'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 用户不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取单个用户
+      tags:
+      - 用户管理
+    put:
+      consumes:
+      - application/json
+      description: 更新用户信息
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.UserResponse'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 用户不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新用户
+      tags:
+      - 用户管理
+  /users/password:
+    put:
+      consumes:
+      - application/json
+      description: 修改当前登录用户的密码
+      parameters:
+      - description: 密码信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.UpdatePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改成功
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "401":
+          description: 未登录或旧密码错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 用户不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改密码
+      tags:
+      - 个人中心
+  /users/profile:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前登录用户的个人资料
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.UserResponse'
+              type: object
+        "401":
+          description: 未登录
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 用户不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取个人资料
+      tags:
+      - 个人中心
+    put:
+      consumes:
+      - application/json
+      description: 更新当前登录用户的个人资料
+      parameters:
+      - description: 用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.UserResponse'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "401":
+          description: 未登录
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: 用户不存在
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新个人资料
+      tags:
+      - 个人中心
+securityDefinitions:
+  Bearer:
+    description: '请在此输入 Bearer token: Bearer {token}'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
