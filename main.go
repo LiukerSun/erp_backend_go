@@ -4,19 +4,19 @@ import (
 	"log"
 	"os"
 
-	"erp-backend/modules/attribute"
-	"erp-backend/modules/category"
-	"erp-backend/modules/link"
-	"erp-backend/modules/product"
-	"erp-backend/modules/shop"
-	"erp-backend/modules/supplier"
-	"erp-backend/modules/system"
-	"erp-backend/modules/user"
-	"erp-backend/pkg/database"
-	"erp-backend/pkg/middleware"
-	"erp-backend/pkg/response"
+	"erp_backend/modules/attribute"
+	"erp_backend/modules/category"
+	"erp_backend/modules/link"
+	"erp_backend/modules/product"
+	"erp_backend/modules/shop"
+	"erp_backend/modules/supplier"
+	"erp_backend/modules/system"
+	"erp_backend/modules/user"
+	"erp_backend/pkg/database"
+	"erp_backend/pkg/middleware"
+	"erp_backend/pkg/response"
 
-	_ "erp-backend/docs" // 导入 swagger docs
+	_ "erp_backend/docs" // 导入 swagger docs
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -61,13 +61,21 @@ func main() {
 	}
 
 	// 自动迁移数据库结构
-	if err := autoMigrate(db); err != nil {
-		log.Fatalf("数据库迁移失败: %v", err)
+	if os.Getenv("SKIP_MIGRATION") != "true" {
+		if err := autoMigrate(db); err != nil {
+			log.Fatalf("数据库迁移失败: %v", err)
+		}
+	} else {
+		log.Println("跳过数据库迁移")
 	}
 
 	// 初始化种子数据
-	if err := seedData(db); err != nil {
-		log.Fatal("种子数据初始化失败:", err)
+	if os.Getenv("SKIP_SEED") != "true" {
+		if err := seedData(db); err != nil {
+			log.Fatal("种子数据初始化失败:", err)
+		}
+	} else {
+		log.Println("跳过种子数据初始化")
 	}
 
 	// 创建Gin引擎
@@ -97,7 +105,10 @@ func main() {
 
 // autoMigrate 自动迁移数据库结构
 func autoMigrate(db *gorm.DB) error {
-	return db.AutoMigrate(
+	log.Println("开始数据库结构迁移...")
+
+	err := db.AutoMigrate(
+		&user.User{}, // 添加用户模型
 		&supplier.Supplier{},
 		&shop.Shop{},
 		&product.Product{},
@@ -106,11 +117,19 @@ func autoMigrate(db *gorm.DB) error {
 		&attribute.Attribute{},
 		&attribute.ProductAttribute{},
 	)
+
+	if err != nil {
+		log.Printf("数据库迁移失败: %v", err)
+		return err
+	}
+
+	log.Println("数据库结构迁移完成")
+	return nil
 }
 
 // seedData 初始化种子数据
 func seedData(db *gorm.DB) error {
-	log.Println("开始初始化种子数据...")
+	log.Println("检查种子数据...")
 
 	// 检查是否已有数据
 	var userCount int64
@@ -119,6 +138,8 @@ func seedData(db *gorm.DB) error {
 		log.Println("用户表已有数据，跳过种子数据初始化")
 		return nil
 	}
+
+	log.Println("开始初始化种子数据...")
 
 	// 创建管理员用户
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte("test1234"), bcrypt.DefaultCost)

@@ -1,0 +1,40 @@
+# Git相关
+.git
+.gitignore
+
+# 文档
+README.md
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件
+*.tmp
+*.temp
+
+# IDE相关
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 操作系统相关
+.DS_Store
+Thumbs.db
+
+# Docker相关
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# 环境变量文件（除了示例文件）
+.env
+
+# 测试文件
+*_test.go
+test/
+
+# 构建产物
+main
+*.exe 

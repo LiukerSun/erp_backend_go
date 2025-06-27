@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"erp-backend/pkg/response"
+	"erp_backend/pkg/response"
 )
 
 type Handler struct {

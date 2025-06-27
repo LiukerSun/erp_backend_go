@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  erp_backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: erp_backend
+    ports:
+      - "8080:8080"
+    environment:
+      # 数据库配置 - 请根据您的实际数据库信息修改
+      - DB_HOST=host.docker.internal
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=RealX1234
+      - DB_NAME=erp_db
+      - DB_SSLMODE=disable
+      
+      # 应用配置
+      - GIN_MODE=release
+      - PORT=8080
+      
+      # JWT配置
+      - JWT_SECRET=your-jwt-secret-key
+      - JWT_EXPIRE_HOURS=24
+      
+      # 初始化控制（可选）
+      # - SKIP_MIGRATION=true    # 跳过数据库迁移
+      # - SKIP_SEED=true         # 跳过种子数据初始化
+    volumes:
+      # 可选：挂载日志目录
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - erp-network
+
+networks:
+  erp-network:
+    driver: bridge 

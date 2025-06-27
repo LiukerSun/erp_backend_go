@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"erp-backend/pkg/response"
+	"erp_backend/pkg/response"
 )
 
 // @Summary 健康检查

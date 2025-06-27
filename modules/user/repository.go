@@ -3,7 +3,7 @@ package user
 import (
 	"errors"
 
-	"erp-backend/pkg/database"
+	"erp_backend/pkg/database"
 
 	"gorm.io/gorm"
 )

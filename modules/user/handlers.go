@@ -3,14 +3,13 @@ package user
 import (
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 
-	"erp-backend/pkg/response"
+	"erp_backend/pkg/middleware"
+	"erp_backend/pkg/response"
 )
 
 type Handler struct {
@@ -58,13 +57,7 @@ func (h *Handler) Login(c *gin.Context) {
 	}
 
 	// 生成JWT token
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"user_id":   user.ID,
-		"user_type": user.UserType,
-		"exp":       time.Now().Add(time.Hour * 24).Unix(),
-	})
-
-	tokenString, err := token.SignedString([]byte("your-secret-key"))
+	tokenString, err := middleware.GenerateToken(user.ID, user.UserType)
 	if err != nil {
 		response.Error(c, http.StatusInternalServerError, "生成token失败")
 		return

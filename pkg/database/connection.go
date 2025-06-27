@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"erp-backend/pkg/config"
+	"erp_backend/pkg/config"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

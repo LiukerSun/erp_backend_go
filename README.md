@@ -40,11 +40,11 @@ backend/
 
 ### 1. 下载
 
-从 [Releases](https://github.com/your-username/erp-backend/releases) 页面下载适合您系统的最新版本：
+从 [Releases](https://github.com/your-username/erp_backend/releases) 页面下载适合您系统的最新版本：
 
-- Windows: `erp-backend_windows_amd64.exe`
-- Linux: `erp-backend_linux_amd64`
-- macOS: `erp-backend_darwin_amd64`
+- Windows: `erp_backend_windows_amd64.exe`
+- Linux: `erp_backend_linux_amd64`
+- macOS: `erp_backend_darwin_amd64`
 
 ### 2. 配置
 
@@ -78,25 +78,25 @@ CREATE DATABASE erp_db;
 #### Windows
 ```bash
 # 直接运行
-erp-backend_windows_amd64.exe
+erp_backend_windows_amd64.exe
 
 # 或者在命令提示符中运行
-start erp-backend_windows_amd64.exe
+start erp_backend_windows_amd64.exe
 
 # 后台运行
-start /b erp-backend_windows_amd64.exe
+start /b erp_backend_windows_amd64.exe
 ```
 
 #### Linux/macOS
 ```bash
 # 添加执行权限
-chmod +x erp-backend_linux_amd64
+chmod +x erp_backend_linux_amd64
 
 # 直接运行
-./erp-backend_linux_amd64
+./erp_backend_linux_amd64
 
 # 后台运行
-nohup ./erp-backend_linux_amd64 &
+nohup ./erp_backend_linux_amd64 &
 
 # 查看日志
 tail -f nohup.out

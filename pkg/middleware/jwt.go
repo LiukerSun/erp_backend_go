@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"erp-backend/pkg/response"
+	"erp_backend/pkg/response"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"

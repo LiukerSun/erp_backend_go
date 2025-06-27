@@ -3,6 +3,8 @@ package user
 import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+
+	"erp_backend/pkg/middleware"
 )
 
 // @title ERP系统 API
@@ -24,8 +26,8 @@ func RegisterRoutes(r *gin.RouterGroup, db *gorm.DB) {
 		auth.POST("/register", handler.Register) // @Summary 用户注册
 	}
 
-	// 用户管理路由
-	users := r.Group("/users")
+	// 用户管理路由，需要 JWT 认证
+	users := r.Group("/users", middleware.JWTAuth())
 	{
 		users.GET("", handler.List)                    // @Summary 获取用户列表
 		users.GET("/:id", handler.Get)                 // @Summary 获取单个用户
